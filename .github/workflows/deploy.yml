@@ -1,4 +1,4 @@
-name: Test Bun # Name it however you want
+name: Deploy # Name it however you want
 
 on:
   # Trigger the workflow every time you push to the `main` branch
@@ -20,12 +20,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # Using with bun
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest # You can also use a specific version
         # run any `bun` or `bunx` command
       - run: bun install
       - run: bunx elm-land build
+
+      # Using with Npm
+      # - uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 20
+      # - run: npm ci
+      # - run: npx elm-land build
+
+
       - uses: actions/upload-pages-artifact@v3
         with:
           name: github-pages
